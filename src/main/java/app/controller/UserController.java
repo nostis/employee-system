@@ -38,4 +38,16 @@ public class UserController {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
+
+    @GetMapping("/users")
+    public String getAllUsers(){
+        String toReturn = "";
+        for(User user : userService.getAllUsers()){
+            toReturn += "Id: " + user.getId() + " Name: " + user.getName();
+            toReturn += "\n";
+        }
+
+        toReturn = toReturn.replace("\n", "<br />\n");
+        return toReturn;
+    }
 }
