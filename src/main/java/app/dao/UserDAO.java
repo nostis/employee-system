@@ -1,11 +1,11 @@
 package app.dao;
 
-import app.model.User;
+import app.model.Employee;
 
 import java.util.List;
 
 public interface UserDAO {
-    User getUserById(int id);
-    List<User> getAllUsers();
-    void addUser(User user);
+    Employee getUserById(int id);
+    List<Employee> getAllUsers();
+    void addUser(Employee employee);
 }

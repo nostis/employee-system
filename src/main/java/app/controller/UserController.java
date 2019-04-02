@@ -1,12 +1,11 @@
 package app.controller;
 
-import app.model.User;
+import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import app.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,7 +18,7 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public String getUserById(@PathVariable int id, Model model){
-        Optional<User> user = Optional.ofNullable(userService.getUserById(id));
+        Optional<Employee> user = Optional.ofNullable(userService.getUserById(id));
 
         if(user.isPresent()){
             model.addAttribute("id", user.get().getId());
@@ -40,12 +39,12 @@ public class UserController {
     }
 
     @GetMapping("/saveform")
-    public String showForm(User user){
+    public String showForm(Employee employee){
         return "save";
     }
 
     @PostMapping("/save")
-    public void addUser(User user, Model model){
-        userService.addUser(user);
+    public void addUser(Employee employee, Model model){
+        userService.addUser(employee);
     }
 }

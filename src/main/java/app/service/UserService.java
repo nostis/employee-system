@@ -1,7 +1,7 @@
 package app.service;
 
 import app.dao.UserDAO;
-import app.model.User;
+import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class UserService {
     @Qualifier("UserDAOSimpleImpl")
     UserDAO userDAO;
 
-    public User getUserById(int id){
+    public Employee getUserById(int id){
         return userDAO.getUserById(id);
     }
 
-    public List<User> getAllUsers(){
+    public List<Employee> getAllUsers(){
         return userDAO.getAllUsers();
     }
 
-    public void addUser(User user){
-        userDAO.addUser(user);
+    public void addUser(Employee employee){
+        userDAO.addUser(employee);
     }
 }
