@@ -29,4 +29,9 @@ public class UserDAOSimpleImpl implements UserDAO {
             return users.get(id);
         }
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return users;
+    }
 }

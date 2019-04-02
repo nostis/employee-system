@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +29,13 @@ public class UserController {
             model.addAttribute("id", "");
             model.addAttribute("name", "");
         }
-        
+
         return "user";
+    }
+
+    @GetMapping("/users")
+    public String getAllUsers(Model model){
+        model.addAttribute("users", userService.getAllUsers());
+        return "users";
     }
 }
