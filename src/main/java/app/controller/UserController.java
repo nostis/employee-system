@@ -3,7 +3,7 @@ package app.controller;
 import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import app.service.UserService;
+import app.service.EmployeeService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +14,11 @@ import java.util.Optional;
 @Controller
 public class UserController {
     @Autowired
-    UserService userService;
+    EmployeeService employeeService;
 
     @GetMapping("/users/{id}")
     public String getUserById(@PathVariable int id, Model model){
-        Optional<Employee> user = Optional.ofNullable(userService.getUserById(id));
+        Optional<Employee> user = Optional.ofNullable(employeeService.getUserById(id));
 
         if(user.isPresent()){
             model.addAttribute("id", user.get().getId());
@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", employeeService.getAllUsers());
         return "users";
     }
 
@@ -45,6 +45,6 @@ public class UserController {
 
     @PostMapping("/save")
     public void addUser(Employee employee, Model model){
-        userService.addUser(employee);
+        employeeService.addUser(employee);
     }
 }

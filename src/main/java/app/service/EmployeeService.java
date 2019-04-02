@@ -1,6 +1,6 @@
 package app.service;
 
-import app.dao.UserDAO;
+import app.dao.EmployeeDAO;
 import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService {
+public class EmployeeService {
     @Autowired
-    @Qualifier("UserDAOSimpleImpl")
-    UserDAO userDAO;
+    @Qualifier("EmployeeDAOSimpleImpl")
+    EmployeeDAO employeeDAO;
 
     public Employee getUserById(int id){
-        return userDAO.getUserById(id);
+        return employeeDAO.getUserById(id);
     }
 
     public List<Employee> getAllUsers(){
-        return userDAO.getAllUsers();
+        return employeeDAO.getAllUsers();
     }
 
     public void addUser(Employee employee){
-        userDAO.addUser(employee);
+        employeeDAO.addUser(employee);
     }
 }
