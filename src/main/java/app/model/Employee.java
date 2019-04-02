@@ -1,7 +1,7 @@
 package app.model;
 
 public class Employee {
-    private static int currentId;
+    private static int currentId = 1;
     private int id;
     private String name;
     private int salary;
