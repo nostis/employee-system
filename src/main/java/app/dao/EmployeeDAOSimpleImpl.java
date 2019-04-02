@@ -20,26 +20,6 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
         employees.add(new Employee("Emp3", 2000));
     }
 
-    /*@Override
-    public Employee getUserById(int id) {
-        if(id >= employees.size() || id < 0){
-            return null;
-        }
-        else{
-            return employees.get(id);
-        }
-    }
-
-    @Override
-    public List<Employee> getAllUsers() {
-        return employees;
-    }
-
-    @Override
-    public void addUser(Employee employee) {
-        employees.add(employee);
-    }*/
-
     @Override
     public Employee getEmpById(int id) {
         return employees.get(id);
@@ -89,7 +69,7 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
                 break;
             }
         }
-        
+
         employees.add(employee);
     }
 

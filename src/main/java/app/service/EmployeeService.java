@@ -14,15 +14,31 @@ public class EmployeeService {
     @Qualifier("EmployeeDAOSimpleImpl")
     EmployeeDAO employeeDAO;
 
-    public Employee getUserById(int id){
-        return employeeDAO.getUserById(id);
+    public Employee getEmpById(int id){
+        return employeeDAO.getEmpById(id);
     }
 
-    public List<Employee> getAllUsers(){
-        return employeeDAO.getAllUsers();
+    public Employee getEmpByName(String name){
+        return employeeDAO.getEmpByName(name);
     }
 
-    public void addUser(Employee employee){
-        employeeDAO.addUser(employee);
+    public List<Employee> getEmpsBySalary(int salary){
+        return employeeDAO.getEmpsBySalary(salary);
+    }
+
+    public List<Employee> getAllEmps(){
+        return employeeDAO.getAllEmps();
+    }
+
+    public void addEmp(Employee employee){
+        employeeDAO.addEmp(employee);
+    }
+
+    public void editEmp(int id, Employee employee){
+        employeeDAO.editEmp(id, employee);
+    }
+
+    public void deleteEmp(int id){
+        employeeDAO.deleteEmp(id);
     }
 }
