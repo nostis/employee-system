@@ -7,6 +7,7 @@ import app.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,20 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String getAllUsers(Model model){
+    public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
-    }
-
-    @GetMapping("/users")
-    public String getAllUsers(){
-        String toReturn = "";
-        for(User user : userService.getAllUsers()){
-            toReturn += "Id: " + user.getId() + " Name: " + user.getName();
-            toReturn += "\n";
-        }
-
-        toReturn = toReturn.replace("\n", "<br />\n");
-        return toReturn;
     }
 }
