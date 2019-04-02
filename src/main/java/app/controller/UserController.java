@@ -6,11 +6,10 @@ import org.springframework.stereotype.Controller;
 import app.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,5 +37,15 @@ public class UserController {
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "users";
+    }
+
+    @GetMapping("/saveform")
+    public String showForm(User user){
+        return "save";
+    }
+
+    @PostMapping("/save")
+    public void addUser(User user, Model model){
+        userService.addUser(user);
     }
 }
