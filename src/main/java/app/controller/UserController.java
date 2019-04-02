@@ -4,20 +4,31 @@ import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import app.service.UserService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import java.util.Optional;
+
+@Controller
 public class UserController {
     @Autowired
     UserService userService;
 
     @GetMapping("/users/{id}")
-    public String getUserById(@PathVariable int id){
-        User user = userService.getUserById(id);
-        String toReturn = "Id: " + user.getId() + " Name: " + user.getName();
+    public String getUserById(@PathVariable int id, Model model){
+        Optional<User> user = Optional.ofNullable(userService.getUserById(id));
 
-        return toReturn; //to do; must return Optional<User>
+        if(user.isPresent()){
+            model.addAttribute("id", user.get().getId());
+            model.addAttribute("name", user.get().getName());
+        }
+        else{
+            model.addAttribute("id", "");
+            model.addAttribute("name", "");
+        }
+        
+        return "user";
     }
 }

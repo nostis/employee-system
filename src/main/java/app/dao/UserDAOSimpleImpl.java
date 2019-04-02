@@ -22,6 +22,11 @@ public class UserDAOSimpleImpl implements UserDAO {
 
     @Override
     public User getUserById(int id) {
-        return users.get(id);
+        if(id >= users.size() || id < 0){
+            return null;
+        }
+        else{
+            return users.get(id);
+        }
     }
 }

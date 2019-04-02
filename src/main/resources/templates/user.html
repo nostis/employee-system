@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <tr>
+        <td th:if="${id == '' and name == ''}">No such user!</td>
+        <td th:if="${id != '' and name != ''}" th:text="'Id: ' + ${id} + ' Name: ' + ${name}"></td>
+    </tr>
+</body>
+</html>
