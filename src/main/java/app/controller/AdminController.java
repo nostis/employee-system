@@ -48,4 +48,10 @@ public class AdminController {
         model.addAttribute("employee", employee);
         return "admin/search";
     }
+
+    @PostMapping("/all")
+    public String getAllEmps(Model model){
+        model.addAttribute("employees", employeeService.getAllEmps());
+        return "admin/all";
+    }
 }
