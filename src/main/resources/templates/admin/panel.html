@@ -12,5 +12,10 @@
         <form style="display:inline-block;" action="#" th:action="@{/admin/all}" method="post">
             <input type="submit" value="All employees">
         </form>
+        <form style="display:inline-block;" action="#" th:action="@{/admin/add}" method="post">
+            <p>Name <input type="text" id="name" name="name"></p>
+            <p>Salary <input type="number" id="salary" name="salary"></p>
+            <p><input type="submit" value="Add employee" /></p>
+        </form>
 </body>
 </html>

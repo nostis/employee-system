@@ -54,4 +54,10 @@ public class AdminController {
         model.addAttribute("employees", employeeService.getAllEmps());
         return "admin/all";
     }
+
+    @PostMapping("/add")
+    public String addEmployee(Employee employee){
+        employeeService.addEmp(new Employee(employee.getName(), employee.getSalary()));
+        return "/admin/add";
+    }
 }
