@@ -5,8 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<tr>
-    <td th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></td>
-</tr>
+    <a th:href="@{/admin}">Back to panel</a>
+    <br>
+    <tr>
+        <td th:text="'Results for ' + ${content.text}"></td>
+        <br>
+        <td th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></td>
+    </tr>
 </body>
 </html>

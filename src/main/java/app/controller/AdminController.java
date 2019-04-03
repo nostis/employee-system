@@ -18,7 +18,7 @@ public class AdminController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/panel")
+    @GetMapping({"/panel", "/"})
     public String showPanel(Model model){
         model.addAttribute("content", new Content());
         return "admin/panel";
@@ -44,6 +44,7 @@ public class AdminController {
             }
         }
 
+        model.addAttribute("content", content);
         model.addAttribute("employee", employee);
         return "admin/search";
     }
