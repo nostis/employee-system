@@ -22,7 +22,7 @@ public class AdminController {
     @Autowired
     private EmployeeFormValidator employeeFormValidator;
 
-    @InitBinder
+    @InitBinder("add")
     protected void initPersonFormBinder(WebDataBinder binder) {
         binder.addValidators(employeeFormValidator);
     }
@@ -64,17 +64,17 @@ public class AdminController {
         return "admin/all";
     }
 
-    @GetMapping("/addform")
+    @GetMapping("/add")
     public String showAddEmpForm(Employee employee){
-        return "admin/addform";
+        return "admin/add";
     }
 
-    @PostMapping("/addform")
+    @PostMapping("/add")
     public String submitFormAdd(@Valid Employee employee, BindingResult bindingResult){
         employeeFormValidator.validate(employee, bindingResult);
 
         if(bindingResult.hasErrors()){
-            return "/admin/addform";
+            return "/admin/add";
         }
 
         employeeService.addEmp(new Employee(employee.getName(), employee.getSalary()));

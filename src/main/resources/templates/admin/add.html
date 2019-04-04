@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<form style="display:inline-block;" action="#" th:action="@{/admin/add}" th:object="${employee}" method="post">
+    <p>Name <input type="text" th:field="*{name}"></p>
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+    <p>Salary <input type="number" th:field="*{salary}"></p>
+    <p th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+    <p><input type="submit" value="Add employee" /></p>
+</form>
 </body>
 </html>
