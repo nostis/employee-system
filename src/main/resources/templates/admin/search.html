@@ -7,12 +7,12 @@
 <body>
     <a th:href="@{/admin}">Back to panel</a>
     <br>
-    <tr th:with="result = ${employee.id == null or employee.name == null or employee.salary == null}">
+    <tr th:with="result = ${employees.isEmpty()}">
         <td th:text="'Results for ' + ${content.text}"></td>
         <br>
         <td>
             <p th:if="${result}">Cant find employee</p>
-            <p th:unless="${result}" th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+            <p th:unless="${result}" th:each="e : ${employees}" th:text="'Id: ' + ${e.id} + ' Name: ' + ${e.name} + ' Salary: ' + ${e.salary}"></p>
         </td>
     </tr>
 </body>

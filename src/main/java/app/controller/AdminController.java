@@ -13,6 +13,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,26 +37,26 @@ public class AdminController {
 
     @PostMapping("/search")
     public String searchEmp(@ModelAttribute Content content, Model model){
-        Employee employee = new Employee();
+        //Employee employee = new Employee();
+        List<Employee> employees = new ArrayList<>();
         if(NumberUtils.isParsable(content.getText())){
             for(Employee e : employeeService.getAllEmps()){
-                if(e.getId() == Integer.parseInt(content.getText())){
-                    employee = e;
-                    break;
+                if(e.getId() == Integer.parseInt(content.getText())){ //if user give id in form
+                    employees.add(e);
+                    //break;
                 }
             }
         }
         else{
-            for(Employee e : employeeService.getAllEmps()){
+            for(Employee e : employeeService.getAllEmps()){ //if user give string(name) in form
                 if(e.getName().equals(content.getText())){
-                    employee = e;
-                    break;
+                    employees.add(e);
                 }
             }
         }
 
         model.addAttribute("content", content);
-        model.addAttribute("employee", employee);
+        model.addAttribute("employees", employees);
         return "admin/search";
     }
 
