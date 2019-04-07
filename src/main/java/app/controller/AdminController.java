@@ -63,6 +63,7 @@ public class AdminController {
     @PostMapping("/all")
     public String getAllEmps(Model model){
         model.addAttribute("employees", employeeService.getAllEmps());
+        model.addAttribute("empty_emp", new Employee());
         return "admin/all";
     }
 
@@ -83,11 +84,29 @@ public class AdminController {
         return "redirect:/admin/addsuccess";
     }
 
-    @PostMapping("/empedit")
-    public String showEditEmpForm(@ModelAttribute("e") Employee employee){
-        //model.addAttribute("employee", employee);
-        System.out.println(employee.getId());
+    @GetMapping("/empedit")
+    public String showEditEmpForm(@ModelAttribute("empty_emp") Employee employee, Model model){ //path variable {id}?
+        model.addAttribute("employee", employeeService.getEmpById(employee.getId()));
+        //model.addAttribute("new_emp", new Employee());
+        //model.addAttribute("emp_id", employee.getId());
+        //System.out.println(employee.getId());
         return "/admin/empedit";
+    }
+
+    @PostMapping("/empedit")
+    public String submitEditEmpForm(@Valid @ModelAttribute("empty_emp") Employee employee, BindingResult bindingResult){
+        //need valdiation; if view got valid values
+        employeeFormValidator.validate(employee, bindingResult);
+
+        System.out.println(employee.getId());
+
+        if(bindingResult.hasErrors()){
+            System.out.println("Asdf");
+            return "/admin/empedit"; //empedit/{id}?
+        }
+
+        employeeService.editEmp(employee.getId(), employee);
+        return "redirect:/admin/editsuccess";
     }
 
     @GetMapping("/addsuccess")
