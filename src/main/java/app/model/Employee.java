@@ -14,6 +14,10 @@ public class Employee {
 
     public Employee(){}
 
+    public void setId(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

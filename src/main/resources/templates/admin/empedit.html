@@ -5,7 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-    <a th:href="@{/admin}">Back to panel</a>
-    <p th:text="${e.name}"></p>
+    <a style="display:inline-block;" th:href="@{/admin}" >Back to panel</a>
+    <!-- <p th:text="${empty_emp.id}"></p> !-->
+    <p style="display:inline-block;" th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+    <form style="display:inline-block;" action="#" th:action="@{/admin/empedit}" th:object="${empty_emp}" method="post">
+        <p>Name <input type="text" th:field="*{name}"></p>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+
+        <p>Salary <input type="number" th:field="*{salary}"></p>
+        <p th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+
+        <p><input type="hidden" th:field="*{id}"></p>
+
+        <p><input type="submit" value="Edit employee" /></p>
+    </form>
 </body>
 </html>
