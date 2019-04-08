@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Component("EmployeeDAOSimpleImpl")
 public class EmployeeDAOSimpleImpl implements EmployeeDAO {
     private List<Employee> employees;
 
@@ -22,29 +21,22 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
 
     @Override
     public Employee getEmpById(int id) {
-        //return employees.get(id);
-        Employee employee = new Employee();
         for(Employee e : employees){
             if(e.getId() == id){
-                employee = e;
-                break;
+                return e;
             }
         }
-
-        return employee;
+        return null;
     }
 
     @Override
     public Employee getEmpByName(String name) {
-        Employee e = new Employee();
-
-        for(Employee em : employees){
-            if(em.getName().equals(name)){
-                e = em;
-                break;
+        for(Employee e : employees){
+            if(e.getName().equals(name)){
+                return e;
             }
         }
-        return e;
+        return null;
     }
 
     @Override

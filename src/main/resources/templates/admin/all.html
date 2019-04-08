@@ -17,12 +17,8 @@
                 <form th:object="${empty_emp}" action="#" th:action="@{/admin/empedit}" method="get">
                     <p style="display:inline-block;" th:text="'Id: ' + ${e.id} + ' Name: ' + ${e.name} + ' Salary: ' + ${e.salary}"></p>
                     <input type="hidden" id="id" name="id" th:value="${e.id}">
-                    <!-- <input type="hidden" name="salary" value="${e.salary}"> <!-->
                     <input type="submit" value="Edit">
                 </form>
-                <!--<p style="display:inline-block;" th:text="'Id: ' + ${e.id} + ' Name: ' + ${e.name} + ' Salary: ' + ${e.salary}"></p>
-                    <button th:object="${e}" action="#" th:action="@{/admin/empedit}" method="post" th:href="@{empedit}"></button>
-                <!-->
             </div>
         </div>
     </div>

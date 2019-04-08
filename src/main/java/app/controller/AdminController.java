@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -37,21 +38,16 @@ public class AdminController {
 
     @PostMapping("/search")
     public String searchEmp(@ModelAttribute Content content, Model model){
+        model.addAttribute("empty_emp", new Employee());
         List<Employee> employees = new ArrayList<>();
         if(NumberUtils.isParsable(content.getText())){
-            for(Employee e : employeeService.getAllEmps()){
-                if(e.getId() == Integer.parseInt(content.getText())){ //if user give id in form
-                    employees.add(e);
-                    //break;
-                }
-            }
+            employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
+            Optional<Employee> optionalEmployee = Optional.ofNullable(employeeService.getEmpById(Integer.parseInt(content.getText())));
+            optionalEmployee.ifPresent(employees::add);
         }
         else{
-            for(Employee e : employeeService.getAllEmps()){ //if user give string(name) in form
-                if(e.getName().equals(content.getText())){
-                    employees.add(e);
-                }
-            }
+            Optional<Employee> optionalEmployee = Optional.ofNullable(employeeService.getEmpByName(content.getText()));
+            optionalEmployee.ifPresent(employees::add);
         }
 
         model.addAttribute("content", content);
