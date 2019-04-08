@@ -37,7 +37,6 @@ public class AdminController {
 
     @PostMapping("/search")
     public String searchEmp(@ModelAttribute Content content, Model model){
-        //Employee employee = new Employee();
         List<Employee> employees = new ArrayList<>();
         if(NumberUtils.isParsable(content.getText())){
             for(Employee e : employeeService.getAllEmps()){
@@ -94,8 +93,6 @@ public class AdminController {
     public String submitEditEmpForm(@ModelAttribute("empty_emp") Employee employee, BindingResult bindingResult, Model model){
         employeeFormValidator.validate(employee, bindingResult);
 
-        System.out.println(employee.getId());
-
         if(bindingResult.hasErrors()){
             model.addAttribute("empty_emp", employee);
             return "/admin/empedit";
@@ -114,5 +111,4 @@ public class AdminController {
     public String addSuccess(){
         return "/admin/addsuccess";
     }
-
 }
