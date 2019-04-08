@@ -13,6 +13,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,42 +37,42 @@ public class AdminController {
 
     @PostMapping("/search")
     public String searchEmp(@ModelAttribute Content content, Model model){
-        Employee employee = new Employee();
+        List<Employee> employees = new ArrayList<>();
         if(NumberUtils.isParsable(content.getText())){
             for(Employee e : employeeService.getAllEmps()){
-                if(e.getId() == Integer.parseInt(content.getText())){
-                    employee = e;
-                    break;
+                if(e.getId() == Integer.parseInt(content.getText())){ //if user give id in form
+                    employees.add(e);
+                    //break;
                 }
             }
         }
         else{
-            for(Employee e : employeeService.getAllEmps()){
+            for(Employee e : employeeService.getAllEmps()){ //if user give string(name) in form
                 if(e.getName().equals(content.getText())){
-                    employee = e;
-                    break;
+                    employees.add(e);
                 }
             }
         }
 
         model.addAttribute("content", content);
-        model.addAttribute("employee", employee);
+        model.addAttribute("employees", employees);
         return "admin/search";
     }
 
-    @PostMapping("/all")
+    @GetMapping("/all")
     public String getAllEmps(Model model){
         model.addAttribute("employees", employeeService.getAllEmps());
+        model.addAttribute("empty_emp", new Employee());
         return "admin/all";
     }
 
     @GetMapping("/add")
-    public String showAddEmpForm(Employee employee){
+    public String showAddEmpForm(@ModelAttribute Employee employee){
         return "admin/add";
     }
 
     @PostMapping("/add")
-    public String submitFormAdd(@Valid Employee employee, BindingResult bindingResult){
+    public String submitFormAdd(@Valid @ModelAttribute Employee employee, BindingResult bindingResult){
         employeeFormValidator.validate(employee, bindingResult);
 
         if(bindingResult.hasErrors()){
@@ -81,10 +83,32 @@ public class AdminController {
         return "redirect:/admin/addsuccess";
     }
 
+    @GetMapping("/empedit")
+    public String showEditEmpForm(@ModelAttribute("empty_emp") Employee employee, Model model){
+        model.addAttribute("employee", employeeService.getEmpById(employee.getId()));
+        return "/admin/empedit";
+    }
+
+    @PostMapping("/empedit")
+    public String submitEditEmpForm(@ModelAttribute("empty_emp") Employee employee, BindingResult bindingResult, Model model){
+        employeeFormValidator.validate(employee, bindingResult);
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("empty_emp", employee);
+            return "/admin/empedit";
+        }
+
+        employeeService.editEmp(employee.getId(), employee);
+        return "redirect:/admin/editsuccess";
+    }
+
+    @GetMapping("/editsuccess")
+    public String editSuccess(){
+        return "/admin/editsuccess";
+    }
+
     @GetMapping("/addsuccess")
     public String addSuccess(){
         return "/admin/addsuccess";
     }
-
-
 }

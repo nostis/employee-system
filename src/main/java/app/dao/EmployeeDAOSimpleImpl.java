@@ -22,7 +22,16 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
 
     @Override
     public Employee getEmpById(int id) {
-        return employees.get(id);
+        //return employees.get(id);
+        Employee employee = new Employee();
+        for(Employee e : employees){
+            if(e.getId() == id){
+                employee = e;
+                break;
+            }
+        }
+
+        return employee;
     }
 
     @Override
