@@ -9,7 +9,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class EmployeeFormValidator implements Validator {
+public class EmployeeAddFormValidator implements Validator {
 
     @Autowired
     private EmployeeService employeeService;
@@ -31,16 +31,6 @@ public class EmployeeFormValidator implements Validator {
 
         if(e.getName().matches(".*\\d+.*")){
             errors.rejectValue("name", "cant.contain");
-        }
-
-        for(Employee employee : employeeService.getAllEmps()){
-            if(employee.getId() == e.getId()){
-                exist = true;
-            }
-        }
-
-        if(!exist){
-            errors.rejectValue("id", "not.exist");
         }
     }
 }

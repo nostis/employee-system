@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>Are you sure to delete this employee?: </p>
+    <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+
+    <form action="#" th:action="@{/admin/delete}" method="post" th:object="${empty_emp_del}">
+        <input type="hidden" id="empty_emp_del.id" name="id" th:value="${employee.id}">
+        <button type="submit" name="action" value="yes">Yes</button>
+        <button type="submit" name="action" value="no">No</button>
+    </form>
+</body>
+</html>

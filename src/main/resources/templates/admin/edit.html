@@ -8,18 +8,18 @@
     <a style="display:inline-block;" th:href="@{/admin}" >Back to panel</a>
     <p>Enter new values: </p>
 
-    <form action="#" th:action="@{/admin/empedit}" th:object="${empty_emp}" method="post">
+    <form action="#" th:action="@{/admin/edit}" th:object="${empty_emp_edit}" method="post">
         <p><input type="hidden" th:field="*{id}"></p>
 
         <div th:switch="${#fields.hasErrors('id')}">
             <div th:case="${true}">
-                <p th:text="'Id: ' + ${empty_emp.id}"></p>
+                <p th:text="'Id: ' + ${empty_emp_edit.id}"></p>
                 <p th:errors="*{id}"></p>
                 <a style="display:inline-block;" th:href="@{/admin/all}" >Back to all employees</a>
             </div>
 
             <div th:case="${false}">
-                <div th:if="${employee.name != null}">
+                <div th:if="${employee != null}">
                     <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
                 </div>
                 <p>Name <input type="text" th:field="*{name}" pattern="^([^0-9]*)$" required placeholder="Enter Name"
@@ -32,9 +32,7 @@
 
                 <p><input type="submit" value="Edit employee" /></p>
             </div>
-
         </div>
-
     </form>
 </body>
 </html>
