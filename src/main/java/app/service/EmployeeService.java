@@ -28,6 +28,10 @@ public class EmployeeService {
         return employeeDAOSimpleImpl.getAllEmps();
     }
 
+    public List<Employee> getEmpsByName(String name){
+        return employeeDAOSimpleImpl.getEmpsByName(name);
+    }
+
     public void addEmp(Employee employee){
         employeeDAOSimpleImpl.addEmp(employee);
     }

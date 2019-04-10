@@ -51,12 +51,9 @@ public class AdminController {
         List<Employee> employees = new ArrayList<>();
         if(NumberUtils.isParsable(content.getText())){
             employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
-            Optional<Employee> optionalEmployee = Optional.ofNullable(employeeService.getEmpById(Integer.parseInt(content.getText())));
-            optionalEmployee.ifPresent(employees::add);
         }
         else{
-            Optional<Employee> optionalEmployee = Optional.ofNullable(employeeService.getEmpByName(content.getText()));
-            optionalEmployee.ifPresent(employees::add);
+            employees.addAll(employeeService.getEmpsByName(content.getText()));
         }
 
         model.addAttribute("content", content);

@@ -8,6 +8,7 @@ public interface EmployeeDAO {
     Employee getEmpById(int id);
     Employee getEmpByName(String name);
     List<Employee> getEmpsBySalary(int salary);
+    List<Employee> getEmpsByName(String name);
     List<Employee> getAllEmps();
     void addEmp(Employee employee);
     void editEmp(int id, Employee employee);

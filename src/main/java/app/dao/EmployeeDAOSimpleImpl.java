@@ -53,6 +53,19 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
     }
 
     @Override
+    public List<Employee> getEmpsByName(String name) {
+        List<Employee> list = new ArrayList<>();
+
+        for(Employee e : employees){
+            if(e.getName().equals(name)){
+                list.add(e);
+            }
+        }
+
+        return list;
+    }
+
+    @Override
     public List<Employee> getAllEmps() {
         return employees;
     }
