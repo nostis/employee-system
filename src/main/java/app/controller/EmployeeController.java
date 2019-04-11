@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public String getUserById(@PathVariable(name="id") int id, Model model){
-        Optional<Employee> optEmployee = Optional.ofNullable(employeeService.getEmpById(id));
+        Optional<Employee> optEmployee = employeeService.getEmpById(id);
 
         if(optEmployee.isPresent()){
             model.addAttribute("employee", optEmployee.get());
@@ -29,7 +28,7 @@ public class EmployeeController {
         else{
             model.addAttribute("employee", null);
         }
-        
+
         return "employee/employee";
     }
 }

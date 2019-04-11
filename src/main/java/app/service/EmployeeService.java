@@ -5,19 +5,17 @@ import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
     @Autowired
-    EmployeeDAO employeeDAOSimpleImpl;
+    private EmployeeDAO employeeDAOSimpleImpl;
 
-    public Employee getEmpById(int id){
+    public Optional<Employee> getEmpById(int id){
         return employeeDAOSimpleImpl.getEmpById(id);
-    }
-
-    public Employee getEmpByName(String name){
-        return employeeDAOSimpleImpl.getEmpByName(name);
     }
 
     public List<Employee> getEmpsBySalary(int salary){

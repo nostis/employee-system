@@ -48,9 +48,14 @@ public class AdminController {
     public String searchEmp(@ModelAttribute Content content, Model model){
         model.addAttribute("empty_emp_edit", new Employee());
         model.addAttribute("empty_emp_del", new Employee());
+
         List<Employee> employees = new ArrayList<>();
-        if(NumberUtils.isParsable(content.getText())){
+
+        if(NumberUtils.isParsable(content.getText())){ //if user typed number in form
             employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
+
+            Optional<Employee> optionalEmployee = employeeService.getEmpById(Integer.parseInt(content.getText()));
+            optionalEmployee.ifPresent(employees::add);
         }
         else{
             employees.addAll(employeeService.getEmpsByName(content.getText()));
@@ -58,6 +63,7 @@ public class AdminController {
 
         model.addAttribute("content", content);
         model.addAttribute("employees", employees);
+
         return "admin/search";
     }
 
@@ -66,6 +72,7 @@ public class AdminController {
         model.addAttribute("employees", employeeService.getAllEmps());
         model.addAttribute("empty_emp_edit", new Employee());
         model.addAttribute("empty_emp_del", new Employee());
+
         return "admin/all";
     }
 
@@ -83,12 +90,14 @@ public class AdminController {
         }
 
         employeeService.addEmp(new Employee(employee.getName(), employee.getSalary()));
+
         return "redirect:/admin/addsuccess";
     }
 
     @GetMapping("/edit")
     public String showEditEmpForm(@ModelAttribute("empty_emp_edit") Employee employee, Model model){
-        model.addAttribute("employee", employeeService.getEmpById(employee.getId()));
+        model.addAttribute("employee", employeeService.getEmpById(employee.getId()).get());
+
         return "/admin/edit";
     }
 
@@ -98,16 +107,19 @@ public class AdminController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("empty_emp_edit", employee);
+
             return "/admin/edit";
         }
 
         employeeService.editEmp(employee.getId(), employee);
+
         return "redirect:/admin/editsuccess";
     }
 
     @PostMapping("/delconfirmation")
     public String showConfirmationDelete(@ModelAttribute("empty_emp_del") Employee employee, Model model){
-        model.addAttribute("employee", employeeService.getEmpById(employee.getId()));
+        model.addAttribute("employee", employeeService.getEmpById(employee.getId()).get());
+
         return "/admin/delconfirmation";
     }
 
@@ -116,6 +128,7 @@ public class AdminController {
         switch(action){
             case "yes":{
                 employeeService.deleteEmp(employee.getId());
+
                 return "redirect:/admin/delsuccess";
             }
             case "no":{

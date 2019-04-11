@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class EmployeeDAOSimpleImpl implements EmployeeDAO {
@@ -20,49 +22,27 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee getEmpById(int id) {
-        for(Employee e : employees){
-            if(e.getId() == id){
-                return e;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Employee getEmpByName(String name) {
-        for(Employee e : employees){
-            if(e.getName().equals(name)){
-                return e;
-            }
-        }
-        return null;
+    public Optional<Employee> getEmpById(int id) {
+        return employees
+                .stream()
+                .filter(employee -> id == employee.getId())
+                .findAny();
     }
 
     @Override
     public List<Employee> getEmpsBySalary(int salary) {
-        List<Employee> list = new ArrayList<>();
-
-        for(Employee e : employees){
-            if(e.getSalary() == salary || e.getSalary() == salary - 500 || e.getSalary() == salary + 500){
-                list.add(e);
-            }
-        }
-
-        return list;
+        return employees
+                .stream()
+                .filter(employee -> salary == employee.getSalary() || salary == employee.getSalary() - 500 || salary == employee.getSalary() + 500)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Employee> getEmpsByName(String name) {
-        List<Employee> list = new ArrayList<>();
-
-        for(Employee e : employees){
-            if(e.getName().equals(name)){
-                list.add(e);
-            }
-        }
-
-        return list;
+        return employees
+                .stream()
+                .filter(employee -> name.equals(employee.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -77,23 +57,11 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
 
     @Override
     public void editEmp(int id, Employee employee) {
-        for(Employee e : employees){
-            if(e.getId() == id){
-                employees.remove(e);
-                break;
-            }
-        }
-
-        employees.add(employee);
+        employees.set(employees.indexOf(this.getEmpById(id).get()), employee);
     }
 
     @Override
     public void deleteEmp(int id) {
-        for(Employee e : employees){
-            if(e.getId() == id){
-                employees.remove(e);
-                break;
-            }
-        }
+        employees.remove(this.getEmpById(id).get());
     }
 }

@@ -3,10 +3,10 @@ package app.dao;
 import app.model.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeDAO {
-    Employee getEmpById(int id);
-    Employee getEmpByName(String name);
+    Optional<Employee> getEmpById(int id);
     List<Employee> getEmpsBySalary(int salary);
     List<Employee> getEmpsByName(String name);
     List<Employee> getAllEmps();
