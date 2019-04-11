@@ -41,7 +41,7 @@ public class AdminController {
     @GetMapping({"/panel", "/"})
     public String showPanel(Model model){
         model.addAttribute("content", new Content());
-        return "admin/panel";
+        return "/admin/panel";
     }
 
     @PostMapping("/search")
@@ -64,7 +64,7 @@ public class AdminController {
         model.addAttribute("content", content);
         model.addAttribute("employees", employees);
 
-        return "admin/search";
+        return "/admin/search";
     }
 
     @GetMapping("/all")
@@ -73,7 +73,7 @@ public class AdminController {
         model.addAttribute("empty_emp_edit", new Employee());
         model.addAttribute("empty_emp_del", new Employee());
 
-        return "admin/all";
+        return "/admin/all";
     }
 
     @GetMapping("/add")

@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+    <a th:href="@{/accountant}">Back to panel</a>
+    <br>
+    <div th:with="result = ${employees.isEmpty()}">
+        <td th:text="'Results for ' + ${content.text}"></td>
+        <br>
+        <div>
+            <p th:if="${result}">Cant find employee</p>
+            <div th:unless="${result}" th:each="e : ${employees}">
+                <form style="display:inline-block;" th:object="${empty_emp_edit}" action="#" th:action="@{/accountant/edit}" method="get">
+                    <p style="display:inline-block;" th:text="'Id: ' + ${e.id} + ' Name: ' + ${e.name} + ' Salary: ' + ${e.salary}"></p>
+                    <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
 
+                    <input type="submit" value="Edit">
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

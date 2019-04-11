@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Panel</title>
 </head>
 <body>
-
+        <form style="display:inline-block;" action="#" th:action="@{/accountant/search}" th:object="${content}" method="post">
+            <p>Search <input type="text" id="text" name="text" /></p>
+            <p><input type="submit" value="Search employee" /></p>
+        </form>
+        <form style="display:inline-block;" action="#" th:action="@{/accountant/all}" method="get">
+            <input type="submit" value="All employees">
+        </form>
 </body>
 </html>

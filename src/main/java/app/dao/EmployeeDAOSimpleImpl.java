@@ -16,9 +16,9 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
     public EmployeeDAOSimpleImpl() {
         employees = new ArrayList<>();
 
-        employees.add(new Employee("Emp1", 1000));
-        employees.add(new Employee("Emp2", 1000));
-        employees.add(new Employee("Emp3", 2000));
+        employees.add(new Employee("Jack", 1000));
+        employees.add(new Employee("Hanna", 1000));
+        employees.add(new Employee("John", 2000));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class EmployeeDAOSimpleImpl implements EmployeeDAO {
     public List<Employee> getEmpsBySalary(int salary) {
         return employees
                 .stream()
-                .filter(employee -> salary == employee.getSalary() || salary == employee.getSalary() - 500 || salary == employee.getSalary() + 500)
+                .filter(employee -> salary == employee.getSalary() || (salary >= employee.getSalary() - 500 && salary <= employee.getSalary() + 500))
                 .collect(Collectors.toList());
     }
 
