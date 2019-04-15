@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EmployeeDAOCustom extends EmployeeDAOCrud {
-    List<Employee> getBySalary(int salary);
-    List<Employee> getByName(String name);
+public interface EmployeeDAOCustom<T, S> {
+    List<Employee> findBySalary(int salary);
+    List<Employee> findByName(String name);
 }

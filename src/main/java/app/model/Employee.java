@@ -1,11 +1,13 @@
 package app.model;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Employee {
-    //private static int currentId = 0;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -13,7 +15,6 @@ public class Employee {
     private int salary;
 
     public Employee(String name, int salary) {
-        //this.id = currentId++;
         this.name = name;
         this.salary = salary;
     }

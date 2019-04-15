@@ -1,7 +1,6 @@
 package app.service;
 
 import app.dao.EmployeeDAOCrud;
-import app.dao.EmployeeDAOCustom;
 import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,35 +13,35 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
     @Autowired
-    private EmployeeDAOCustom employeeDAOCustom;
+    private EmployeeDAOCrud employeeDAOCrud;
 
     public Optional<Employee> findById(int id){
-        return employeeDAOCustom.findById(id);
+        return employeeDAOCrud.findById(id);
     }
 
     public List<Employee> getEmpsBySalary(int salary){
-        return employeeDAOCustom.getBySalary(salary);
+        return employeeDAOCrud.findBySalary(salary);
     }
 
     public List<Employee> findAll(){
         List<Employee> list = new ArrayList<>();
-        employeeDAOCustom.findAll().forEach(list::add);
+        employeeDAOCrud.findAll().forEach(list::add);
         return list;
     }
 
     public List<Employee> getEmpsByName(String name){
-        return employeeDAOCustom.getByName(name);
+        return employeeDAOCrud.findByName(name);
     }
 
     public void save(Employee employee){
-        employeeDAOCustom.save(employee);
+        employeeDAOCrud.save(employee);
     }
 
     public void edit(Employee employee){
-        employeeDAOCustom.save(employee);
+        employeeDAOCrud.save(employee);
     }
 
     public void deleteById(int id){
-        employeeDAOCustom.deleteById(id);
+        employeeDAOCrud.deleteById(id);
     }
 }
