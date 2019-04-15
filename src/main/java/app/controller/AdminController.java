@@ -54,7 +54,7 @@ public class AdminController {
         if(NumberUtils.isParsable(content.getText())){ //if user typed number in form
             employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
 
-            Optional<Employee> optionalEmployee = employeeService.findById(Integer.parseInt(content.getText()));
+            Optional<Employee> optionalEmployee = employeeService.findEmpById(Integer.parseInt(content.getText()));
             optionalEmployee.ifPresent(employees::add);
         }
         else{
@@ -69,7 +69,7 @@ public class AdminController {
 
     @GetMapping("/all")
     public String getAllEmps(Model model){
-        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("employees", employeeService.getAllEmps());
         model.addAttribute("empty_emp_edit", new Employee());
         model.addAttribute("empty_emp_del", new Employee());
 
@@ -89,14 +89,14 @@ public class AdminController {
             return "/admin/add";
         }
 
-        employeeService.save(new Employee(employee.getName(), employee.getSalary()));
+        employeeService.saveEmp(new Employee(employee.getName(), employee.getSalary()));
 
         return "redirect:/admin/addsuccess";
     }
 
     @GetMapping("/edit")
     public String showEditEmpForm(@ModelAttribute("empty_emp_edit") Employee employee, Model model){
-        model.addAttribute("employee", employeeService.findById(employee.getId()).get());
+        model.addAttribute("employee", employeeService.findEmpById(employee.getId()).get());
 
         return "/admin/edit";
     }
@@ -111,14 +111,14 @@ public class AdminController {
             return "/admin/edit";
         }
 
-        employeeService.edit(employee);
+        employeeService.editEmp(employee);
 
         return "redirect:/admin/editsuccess";
     }
 
     @PostMapping("/delconfirmation")
     public String showConfirmationDelete(@ModelAttribute("empty_emp_del") Employee employee, Model model){
-        model.addAttribute("employee", employeeService.findById(employee.getId()).get());
+        model.addAttribute("employee", employeeService.findEmpById(employee.getId()).get());
 
         return "/admin/delconfirmation";
     }

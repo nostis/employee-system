@@ -33,7 +33,7 @@ public class EmployeeEditFormValidator implements Validator {
             errors.rejectValue("name", "cant.contain");
         }
 
-        for(Employee employee : employeeService.findAll()){
+        for(Employee employee : employeeService.getAllEmps()){
             if(employee.getId() == e.getId()){
                 exist = true;
             }

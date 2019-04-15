@@ -14,7 +14,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeDAOCrud employeeDAOCrud;
 
-    public Optional<Employee> findById(int id){
+    public Optional<Employee> findEmpById(int id){
         return employeeDAOCrud.findById(id);
     }
 
@@ -22,7 +22,7 @@ public class EmployeeService {
         return employeeDAOCrud.findBySalary(salary);
     }
 
-    public List<Employee> findAll(){
+    public List<Employee> getAllEmps(){
         List<Employee> list = new ArrayList<>();
         employeeDAOCrud.findAll().forEach(list::add);
         return list;
@@ -32,11 +32,11 @@ public class EmployeeService {
         return employeeDAOCrud.findByName(name);
     }
 
-    public void save(Employee employee){
+    public void saveEmp(Employee employee){
         employeeDAOCrud.save(employee);
     }
 
-    public void edit(Employee employee){
+    public void editEmp(Employee employee){
         employeeDAOCrud.save(employee);
     }
 
