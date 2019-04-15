@@ -1,44 +1,48 @@
 package app.service;
 
-import app.dao.EmployeeDAO;
+import app.dao.EmployeeDAOCrud;
+import app.dao.EmployeeDAOCustom;
 import app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import javax.crypto.spec.OAEPParameterSpec;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EmployeeService {
     @Autowired
-    private EmployeeDAO employeeDAOSimpleImpl;
+    private EmployeeDAOCustom employeeDAOCustom;
 
-    public Optional<Employee> getEmpById(int id){
-        return employeeDAOSimpleImpl.getEmpById(id);
+    public Optional<Employee> findById(int id){
+        return employeeDAOCustom.findById(id);
     }
 
     public List<Employee> getEmpsBySalary(int salary){
-        return employeeDAOSimpleImpl.getEmpsBySalary(salary);
+        return employeeDAOCustom.getBySalary(salary);
     }
 
-    public List<Employee> getAllEmps(){
-        return employeeDAOSimpleImpl.getAllEmps();
+    public List<Employee> findAll(){
+        List<Employee> list = new ArrayList<>();
+        employeeDAOCustom.findAll().forEach(list::add);
+        return list;
     }
 
     public List<Employee> getEmpsByName(String name){
-        return employeeDAOSimpleImpl.getEmpsByName(name);
+        return employeeDAOCustom.getByName(name);
     }
 
-    public void addEmp(Employee employee){
-        employeeDAOSimpleImpl.addEmp(employee);
+    public void save(Employee employee){
+        employeeDAOCustom.save(employee);
     }
 
-    public void editEmp(int id, Employee employee){
-        employeeDAOSimpleImpl.editEmp(id, employee);
+    public void edit(Employee employee){
+        employeeDAOCustom.save(employee);
     }
 
-    public void deleteEmp(int id){
-        employeeDAOSimpleImpl.deleteEmp(id);
+    public void deleteById(int id){
+        employeeDAOCustom.deleteById(id);
     }
 }

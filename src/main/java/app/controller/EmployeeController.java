@@ -20,7 +20,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public String getUserById(@PathVariable(name="id") int id, Model model){
-        Optional<Employee> optEmployee = employeeService.getEmpById(id);
+        Optional<Employee> optEmployee = employeeService.findById(id);
 
         if(optEmployee.isPresent()){
             model.addAttribute("employee", optEmployee.get());

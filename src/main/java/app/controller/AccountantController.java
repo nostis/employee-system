@@ -47,7 +47,7 @@ public class AccountantController {
         if(NumberUtils.isParsable(content.getText())){ //if user typed number in form
             employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
 
-            Optional<Employee> optionalEmployee = employeeService.getEmpById(Integer.parseInt(content.getText()));
+            Optional<Employee> optionalEmployee = employeeService.findById(Integer.parseInt(content.getText()));
             optionalEmployee.ifPresent(employees::add);
         }
         else{
@@ -62,7 +62,7 @@ public class AccountantController {
 
     @GetMapping("/all")
     public String getAllEmps(Model model){
-        model.addAttribute("employees", employeeService.getAllEmps());
+        model.addAttribute("employees", employeeService.findAll());
         model.addAttribute("empty_emp_edit", new Employee());
 
         return "/accountant/all";
@@ -70,7 +70,7 @@ public class AccountantController {
 
     @GetMapping("/edit")
     public String showEditEmpForm(@ModelAttribute("empty_emp_edit") Employee employee, Model model){
-        model.addAttribute("employee", employeeService.getEmpById(employee.getId()).get());
+        model.addAttribute("employee", employeeService.findById(employee.getId()).get());
 
         return "/accountant/edit";
     }
@@ -85,7 +85,7 @@ public class AccountantController {
             return "/accountant/edit";
         }
 
-        employeeService.editEmp(employee.getId(), employee);
+        employeeService.edit(employee);
 
         return "redirect:/accountant/editsuccess";
     }
