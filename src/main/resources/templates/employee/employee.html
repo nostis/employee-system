@@ -5,12 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<div th:with="result = ${employee == null}">
-    <div th:if="${result}">
-        <p>This employee not exist</p>
-    </div>
-    <div th:unless="${result}">
-        <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+    <a style="display:inline-block;" th:href="@{/logout}">Logout</a>
+
+    <div th:with="result = ${employee == null}">
+        <div th:if="${result}">
+            <p>This employee not exist</p>
+        </div>
+        <div th:unless="${result}">
+            <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+        </div>
     </div>
 </body>
 </html>
