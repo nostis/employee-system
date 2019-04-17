@@ -67,7 +67,7 @@ public class SimpleAuthHandler implements AuthenticationSuccessHandler {
             return "accountant/panel";
         }
         else if (isEmployee) {
-            return "employee/" + empId;
+            return "employee";
         }
         else {
             throw new IllegalStateException();
