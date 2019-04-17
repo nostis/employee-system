@@ -7,6 +7,8 @@ import app.util.EmployeeAddFormValidator;
 import app.util.EmployeeEditFormValidator;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,7 +40,7 @@ public class AdminController {
         binder.addValidators(employeeEditFormValidator);
     }
 
-    @GetMapping({"/panel", "/"})
+    @GetMapping({"/panel", ""})
     public String showPanel(Model model){
         model.addAttribute("content", new Content());
         return "/admin/panel";
