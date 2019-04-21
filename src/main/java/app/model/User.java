@@ -26,4 +26,9 @@ public class User {
         this.empId = empId;
         this.roles = roles;
     }
+
+    @Override
+    public String toString(){
+        return "Id: " + id + " Login: " + login + " Hashed password: " + password;
+    }
 }

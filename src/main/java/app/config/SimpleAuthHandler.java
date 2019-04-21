@@ -61,7 +61,7 @@ public class SimpleAuthHandler implements AuthenticationSuccessHandler {
         }
 
         if (isAdmin) {
-            return "admin/panel";
+            return "admin";
         }
         else if (isAccountant) {
             return "accountant/panel";

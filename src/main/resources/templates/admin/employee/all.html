@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <a th:href="@{/admin}">Back to panel</a>
+    <a th:href="@{/admin/employee/panel}">Back to panel</a>
     <br>
     <div th:with="result = ${employees.isEmpty()}">
         <div th:if="${result}">

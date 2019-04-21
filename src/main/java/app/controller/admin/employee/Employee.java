@@ -17,9 +17,11 @@ import java.util.Optional;
 @RequestMapping("/admin/employee")
 public class Employee extends AdminController {
 
-    @GetMapping
-    public String showEmpPanel(){
-        return "/admin/employee/panel";
+    @GetMapping("/panel")
+    public String showEmpPanel(Model model){
+        model.addAttribute("content", new Content());
+        //return "redirect:/admin/employee/panel";
+        return "admin/employee/panel";
     }
 
     @PostMapping("/search")

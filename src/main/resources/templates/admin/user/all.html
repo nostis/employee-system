@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/admin/user/panel}">Back to panel</a>
+<br>
+<div th:with="result = ${users.isEmpty()}">
+    <div th:if="${result}">
+        <p>List is empty</p>
+    </div>
+    <div th:unless="${result}">
+        <p>Users:</p>
+        <div th:each="u : ${users}">
+                <p style="display:inline-block;" th:text="${u.toString()}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
