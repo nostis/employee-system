@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Optional;
 
 @Controller
-public class EmployeeController {
+public class SingleEmployeeController {
 
     @Autowired
     private EmployeeService employeeService;

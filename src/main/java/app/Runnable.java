@@ -50,6 +50,7 @@ public class Runnable {
             users.save(new User("acc", "$2a$11$cmPaJm9UbNaxGdCddO8qQOrqexkZ5F5QSRLPLY1gkS1l2wzTR2656", 0, accountant));
             users.save(new User("emp", "$2a$11$cmPaJm9UbNaxGdCddO8qQOrqexkZ5F5QSRLPLY1gkS1l2wzTR2656", 1, employee));
             users.save(new User("emp2", "$2a$11$cmPaJm9UbNaxGdCddO8qQOrqexkZ5F5QSRLPLY1gkS1l2wzTR2656", 2, employee));
+            users.save(new User("admin2", "$2a$11$cmPaJm9UbNaxGdCddO8qQOrqexkZ5F5QSRLPLY1gkS1l2wzTR2656", 0, admin));
         };
     }
 }

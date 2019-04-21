@@ -1,8 +1,11 @@
 package app.controller.admin.employee;
 
 import app.controller.admin.AdminController;
+import app.model.CustomUserDetails;
+import app.model.Employee;
 import app.util.Content;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,12 +18,11 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/employee")
-public class Employee extends AdminController {
+public class EmployeeController extends AdminController {
 
     @GetMapping("/panel")
     public String showEmpPanel(Model model){
         model.addAttribute("content", new Content());
-        //return "redirect:/admin/employee/panel";
         return "admin/employee/panel";
     }
 
@@ -61,12 +63,12 @@ public class Employee extends AdminController {
     }
 
     @GetMapping("/add")
-    public String showAddEmpForm(@ModelAttribute app.model.Employee employee){
+    public String showAddEmpForm(@ModelAttribute Employee employee){
         return "admin/employee/add";
     }
 
     @PostMapping("/add")
-    public String submitFormAdd(@Valid @ModelAttribute app.model.Employee employee, BindingResult bindingResult){
+    public String submitFormAdd(@Valid @ModelAttribute Employee employee, BindingResult bindingResult){
         employeeAddFormValidator.validate(employee, bindingResult);
 
         if(bindingResult.hasErrors()){
@@ -79,14 +81,14 @@ public class Employee extends AdminController {
     }
 
     @GetMapping("/edit")
-    public String showEditEmpForm(@ModelAttribute("empty_emp_edit") app.model.Employee employee, Model model){
+    public String showEditEmpForm(@ModelAttribute("empty_emp_edit") Employee employee, Model model){
         model.addAttribute("employee", employeeService.findEmpById(employee.getId()).get());
 
         return "/admin/employee/edit";
     }
 
     @PostMapping("/edit")
-    public String submitEditEmpForm(@ModelAttribute("empty_emp_edit") app.model.Employee employee, BindingResult bindingResult, Model model){
+    public String submitEditEmpForm(@ModelAttribute("empty_emp_edit") Employee employee, BindingResult bindingResult, Model model){
         employeeEditFormValidator.validate(employee, bindingResult);
 
         if(bindingResult.hasErrors()){
@@ -101,14 +103,14 @@ public class Employee extends AdminController {
     }
 
     @PostMapping("/delconfirmation")
-    public String showConfirmationDelete(@ModelAttribute("empty_emp_del") app.model.Employee employee, Model model){
+    public String showConfirmationDelete(@ModelAttribute("empty_emp_del") Employee employee, Model model){
         model.addAttribute("employee", employeeService.findEmpById(employee.getId()).get());
 
         return "/admin/employee/delconfirmation";
     }
 
     @PostMapping("/delete")
-    public String deleteEmployee(@ModelAttribute app.model.Employee employee, @RequestParam(value="action") String action){
+    public String deleteEmployee(@ModelAttribute Employee employee, @RequestParam(value="action") String action) {
         if (action.equals("yes")) {
             employeeService.deleteById(employee.getId());
 

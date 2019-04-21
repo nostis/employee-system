@@ -27,8 +27,17 @@ public class User {
         this.roles = roles;
     }
 
+    public User(){}
+
     @Override
     public String toString(){
-        return "Id: " + id + " Login: " + login + " Hashed password: " + password;
+        StringBuilder toReturn = new StringBuilder("");
+        toReturn.append("Id: ").append(id).append(" Login: ").append(login).append(" Hashed password: ").append(password).append(" roles: ");
+
+        for(Role role : roles){
+            toReturn.append(role.getRole());
+        }
+
+        return toReturn.toString();
     }
 }

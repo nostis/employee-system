@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>Are you sure to delete this user?: </p>
+    <p th:text="${user.toString()}"></p>
+
+    <form action="#" th:action="@{/admin/user/delete}" method="post" th:object="${empty_user_del}">
+        <input type="hidden" id="empty_user_del.id" name="id" th:value="${user.id}">
+        <button type="submit" name="action" value="yes">Yes</button>
+        <button type="submit" name="action" value="no">No</button>
+    </form>
+</body>
+</html>

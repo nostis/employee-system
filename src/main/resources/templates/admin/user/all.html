@@ -14,7 +14,11 @@
     <div th:unless="${result}">
         <p>Users:</p>
         <div th:each="u : ${users}">
-                <p style="display:inline-block;" th:text="${u.toString()}"></p>
+            <p style="display:inline-block;" th:text="${u.toString()}"></p>
+            <form style="display:inline-block;" th:object="${empty_user_del}" action="#" th:action="@{/admin/user/delconfirmation}" method="post">
+                <input type="hidden" id="empty_user_del.id" name="id" th:value="${u.id}">
+                <input type="submit" value="Delete">
+            </form>
         </div>
     </div>
 </div>
