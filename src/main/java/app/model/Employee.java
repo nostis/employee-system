@@ -4,6 +4,7 @@ package app.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 
 @Data
 @Entity

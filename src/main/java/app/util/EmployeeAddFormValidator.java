@@ -10,10 +10,6 @@ import org.springframework.validation.Validator;
 
 @Component
 public class EmployeeAddFormValidator implements Validator {
-
-    @Autowired
-    private EmployeeService employeeService;
-
     @Override
     public boolean supports(Class<?> aClass) {
         return Employee.class.equals(aClass);
@@ -21,8 +17,6 @@ public class EmployeeAddFormValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-
-        boolean exist = false;
 
         ValidationUtils.rejectIfEmpty(errors, "name", "field.name.empty");
         ValidationUtils.rejectIfEmpty(errors, "salary", "field.salary.empty");

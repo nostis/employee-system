@@ -57,7 +57,7 @@ public class AdminController {
             employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
 
             Optional<Employee> optionalEmployee = employeeService.findEmpById(Integer.parseInt(content.getText()));
-            if(optionalEmployee.isPresent()){ 
+            if(optionalEmployee.isPresent()){
                 if(!employees.contains(optionalEmployee.get())){
                     employees.add(optionalEmployee.get());
                 }
