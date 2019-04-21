@@ -13,13 +13,13 @@
         <div>
             <p th:if="${result}">Cant find employee</p>
             <div th:unless="${result}" th:each="e : ${employees}">
-                <form style="display:inline-block;" th:object="${empty_emp_edit}" action="#" th:action="@{/admin/edit}" method="get">
+                <form style="display:inline-block;" th:object="${empty_emp_edit}" action="#" th:action="@{/admin/employee/edit}" method="get">
                     <p style="display:inline-block;" th:text="${e.toString()}"></p>
                     <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
 
                     <input type="submit" value="Edit">
                 </form>
-                <form style="display:inline-block;" th:object="${empty_emp_del}" action="#" th:action="@{/admin/delconfirmation}" method="post">
+                <form style="display:inline-block;" th:object="${empty_emp_del}" action="#" th:action="@{/admin/employee/delconfirmation}" method="post">
                     <input type="hidden" id="empty_emp_del.id" name="id" th:value="${e.id}">
                     <input type="submit" value="Delete">
                 </form>

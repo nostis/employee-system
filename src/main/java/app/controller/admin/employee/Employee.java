@@ -1,0 +1,133 @@
+package app.controller.admin.employee;
+
+import app.controller.admin.AdminController;
+import app.util.Content;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/admin/employee")
+public class Employee extends AdminController {
+
+    @GetMapping
+    public String showEmpPanel(){
+        return "/admin/employee/panel";
+    }
+
+    @PostMapping("/search")
+    public String searchEmp(@ModelAttribute Content content, Model model){
+        model.addAttribute("empty_emp_edit", new app.model.Employee());
+        model.addAttribute("empty_emp_del", new app.model.Employee());
+
+        List<app.model.Employee> employees = new ArrayList<>();
+
+        if(NumberUtils.isParsable(content.getText())){ //if user typed number in form
+            employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
+
+            Optional<app.model.Employee> optionalEmployee = employeeService.findEmpById(Integer.parseInt(content.getText()));
+            if(optionalEmployee.isPresent()){
+                if(!employees.contains(optionalEmployee.get())){
+                    employees.add(optionalEmployee.get());
+                }
+            }
+        }
+        else{
+            employees.addAll(employeeService.getEmpsByName(content.getText()));
+        }
+
+        model.addAttribute("content", content);
+        model.addAttribute("employees", employees);
+
+        return "/admin/employee/search";
+    }
+
+    @GetMapping("/all")
+    public String getAllEmps(Model model){
+        model.addAttribute("employees", employeeService.getAllEmps());
+        model.addAttribute("empty_emp_edit", new app.model.Employee());
+        model.addAttribute("empty_emp_del", new app.model.Employee());
+
+        return "/admin/employee/all";
+    }
+
+    @GetMapping("/add")
+    public String showAddEmpForm(@ModelAttribute app.model.Employee employee){
+        return "admin/employee/add";
+    }
+
+    @PostMapping("/add")
+    public String submitFormAdd(@Valid @ModelAttribute app.model.Employee employee, BindingResult bindingResult){
+        employeeAddFormValidator.validate(employee, bindingResult);
+
+        if(bindingResult.hasErrors()){
+            return "/admin/employee/add";
+        }
+
+        employeeService.saveEmp(new app.model.Employee(employee.getName(), employee.getSalary()));
+
+        return "redirect:/admin/employee/addsuccess";
+    }
+
+    @GetMapping("/edit")
+    public String showEditEmpForm(@ModelAttribute("empty_emp_edit") app.model.Employee employee, Model model){
+        model.addAttribute("employee", employeeService.findEmpById(employee.getId()).get());
+
+        return "/admin/employee/edit";
+    }
+
+    @PostMapping("/edit")
+    public String submitEditEmpForm(@ModelAttribute("empty_emp_edit") app.model.Employee employee, BindingResult bindingResult, Model model){
+        employeeEditFormValidator.validate(employee, bindingResult);
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("empty_emp_edit", employee);
+
+            return "/admin/employee/edit";
+        }
+
+        employeeService.editEmp(employee);
+
+        return "redirect:/admin/employee/editsuccess";
+    }
+
+    @PostMapping("/delconfirmation")
+    public String showConfirmationDelete(@ModelAttribute("empty_emp_del") app.model.Employee employee, Model model){
+        model.addAttribute("employee", employeeService.findEmpById(employee.getId()).get());
+
+        return "/admin/employee/delconfirmation";
+    }
+
+    @PostMapping("/delete")
+    public String deleteEmployee(@ModelAttribute app.model.Employee employee, @RequestParam(value="action") String action){
+        if (action.equals("yes")) {
+            employeeService.deleteById(employee.getId());
+
+            return "redirect:/admin/employee/delsuccess";
+        }
+        return "redirect:/admin/panel";
+
+    }
+
+    @GetMapping("/delsuccess")
+    public String delSuccess(){
+        return "/admin/employee/delsuccess";
+    }
+
+    @GetMapping("/editsuccess")
+    public String editSuccess(){
+        return "/admin/employee/editsuccess";
+    }
+
+    @GetMapping("/addsuccess")
+    public String addSuccess(){
+        return "/admin/employee/addsuccess";
+    }
+}

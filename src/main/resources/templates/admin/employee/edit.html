@@ -8,14 +8,14 @@
     <a style="display:inline-block;" th:href="@{/admin}" >Back to panel</a>
     <p>Enter new values: </p>
 
-    <form action="#" th:action="@{/admin/edit}" th:object="${empty_emp_edit}" method="post">
+    <form action="#" th:action="@{/admin/employee/edit}" th:object="${empty_emp_edit}" method="post">
         <p><input type="hidden" th:field="*{id}"></p>
 
         <div th:switch="${#fields.hasErrors('id')}">
             <div th:case="${true}">
                 <p th:text="'Id: ' + ${empty_emp_edit.id}"></p>
                 <p th:errors="*{id}"></p>
-                <a style="display:inline-block;" th:href="@{/admin/all}" >Back to all employees</a>
+                <a style="display:inline-block;" th:href="@{/admin/employee/all}" >Back to all employees</a>
             </div>
 
             <div th:case="${false}">

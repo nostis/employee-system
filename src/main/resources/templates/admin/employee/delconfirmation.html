@@ -8,7 +8,7 @@
     <p>Are you sure to delete this employee?: </p>
     <p th:text="${employee.toString()}"></p>
 
-    <form action="#" th:action="@{/admin/delete}" method="post" th:object="${empty_emp_del}">
+    <form action="#" th:action="@{/admin/employee/delete}" method="post" th:object="${empty_emp_del}">
         <input type="hidden" id="empty_emp_del.id" name="id" th:value="${employee.id}">
         <button type="submit" name="action" value="yes">Yes</button>
         <button type="submit" name="action" value="no">No</button>
