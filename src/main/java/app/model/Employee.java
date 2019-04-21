@@ -21,4 +21,9 @@ public class Employee {
     }
 
     public Employee(){}
+
+    @Override
+    public String toString(){
+        return "Id: " + id + " Name: " + name + " Salary: " + salary;
+    }
 }

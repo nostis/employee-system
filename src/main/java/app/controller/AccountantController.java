@@ -97,9 +97,9 @@ public class AccountantController {
         return "/accountant/editsuccess";
     }
 
-    @GetMapping("/addsuccess")
+    @GetMapping("/addempsuccess")
     public String addSuccess(){
-        return "/accountant/addsuccess";
+        return "/accountant/addempsuccess";
     }
 }
 

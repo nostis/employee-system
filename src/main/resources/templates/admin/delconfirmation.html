@@ -6,7 +6,7 @@
 </head>
 <body>
     <p>Are you sure to delete this employee?: </p>
-    <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+    <p th:text="${employee.toString()}"></p>
 
     <form action="#" th:action="@{/admin/delete}" method="post" th:object="${empty_emp_del}">
         <input type="hidden" id="empty_emp_del.id" name="id" th:value="${employee.id}">

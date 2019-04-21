@@ -15,7 +15,7 @@
             <p>Employees:</p>
             <div th:each="e : ${employees}">
                 <form style="display:inline-block;" th:object="${empty_emp_edit}" action="#" th:action="@{/admin/edit}" method="get">
-                    <p style="display:inline-block;" th:text="'Id: ' + ${e.id} + ' Name: ' + ${e.name} + ' Salary: ' + ${e.salary}"></p>
+                    <p style="display:inline-block;" th:text="${e.toString()}"></p>
                     <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
 
                     <input type="submit" value="Edit">

@@ -12,7 +12,7 @@
             <p>This employee not exist</p>
         </div>
         <div th:unless="${result}">
-            <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+            <p th:text="${employee.toString()}"></p>
         </div>
     </div>
 </body>

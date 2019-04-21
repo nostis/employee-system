@@ -20,7 +20,7 @@
 
             <div th:case="${false}">
                 <div th:if="${employee != null}">
-                    <p th:text="'Id: ' + ${employee.id} + ' Name: ' + ${employee.name} + ' Salary: ' + ${employee.salary}"></p>
+                    <p th:text="${employee.toString()}"></p>
                 </div>
 
                 <p><input type="hidden" id="name" name="name" th:value="${employee.name}"></p>

@@ -78,22 +78,22 @@ public class AdminController {
         return "/admin/all";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/addemp")
     public String showAddEmpForm(@ModelAttribute Employee employee){
-        return "admin/add";
+        return "admin/addemp";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addemp")
     public String submitFormAdd(@Valid @ModelAttribute Employee employee, BindingResult bindingResult){
         employeeAddFormValidator.validate(employee, bindingResult);
 
         if(bindingResult.hasErrors()){
-            return "/admin/add";
+            return "/admin/addemp";
         }
 
         employeeService.saveEmp(new Employee(employee.getName(), employee.getSalary()));
 
-        return "redirect:/admin/addsuccess";
+        return "redirect:/admin/addempsuccess";
     }
 
     @GetMapping("/edit")
@@ -153,8 +153,8 @@ public class AdminController {
         return "/admin/editsuccess";
     }
 
-    @GetMapping("/addsuccess")
+    @GetMapping("/addempsuccess")
     public String addSuccess(){
-        return "/admin/addsuccess";
+        return "/admin/addempsuccess";
     }
 }
