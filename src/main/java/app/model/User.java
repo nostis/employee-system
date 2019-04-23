@@ -31,11 +31,12 @@ public class User {
 
     @Override
     public String toString(){
-        StringBuilder toReturn = new StringBuilder("");
+        StringBuilder toReturn = new StringBuilder();
         toReturn.append("Id: ").append(id).append(" Login: ").append(login).append(" Hashed password: ").append(password).append(" roles: ");
 
         for(Role role : roles){
             toReturn.append(role.getRole());
+            toReturn.append(" ");
         }
 
         return toReturn.toString();

@@ -28,4 +28,8 @@ public class UserService {
     public Optional<User> findUserByLogin(String login){
         return userDAOCrud.findByLogin(login);
     }
+
+    public void saveUser(User user){
+        userDAOCrud.save(user);
+    }
 }

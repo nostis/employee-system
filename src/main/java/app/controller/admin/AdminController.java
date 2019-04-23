@@ -4,6 +4,7 @@ import app.service.EmployeeService;
 import app.util.Content;
 import app.util.EmployeeAddFormValidator;
 import app.util.EmployeeEditFormValidator;
+import app.util.UserAddFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ public class AdminController {
     protected EmployeeAddFormValidator employeeAddFormValidator;
     @Autowired
     protected EmployeeEditFormValidator employeeEditFormValidator;
+    @Autowired
+    protected UserAddFormValidator userAddFormValidator;
 
     @InitBinder("add")
     protected void initPersonAddFormBinder(WebDataBinder binder) {

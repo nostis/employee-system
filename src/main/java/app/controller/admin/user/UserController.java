@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -57,8 +59,32 @@ public class UserController extends AdminController {
 
     }
 
+    @GetMapping("/add")
+    public String showAddForm(@ModelAttribute User user){
+        return "admin/user/add";
+    }
+
+    @PostMapping("/add")
+    public String submitFormAdd(@Valid @ModelAttribute User user, BindingResult bindingResult){
+        userAddFormValidator.validate(user, bindingResult);
+
+        if(bindingResult.hasErrors()){
+            return "/admin/user/add";
+        }
+
+       //userService.saveUser(new app.model.Employee(employee.getName(), employee.getSalary()));
+        userService.saveUser(user); //
+
+        return "redirect:/admin/user/addsuccess";
+    }
+
     @GetMapping("/delsuccess")
     public String delSuccess(){
         return "/admin/user/delsuccess";
+    }
+
+    @GetMapping("/addsuccess")
+    public String addSuccess(){
+        return "/admin/user/addsuccess";
     }
 }
