@@ -4,6 +4,7 @@ import app.controller.admin.AdminController;
 import app.dao.UserDAOCrud;
 import app.model.CustomUserDetails;
 import app.model.Employee;
+import app.model.Role;
 import app.model.User;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -60,7 +64,15 @@ public class UserController extends AdminController {
     }
 
     @GetMapping("/add")
-    public String showAddForm(@ModelAttribute User user){
+    public String showAddForm(@ModelAttribute User user, Model model){
+        Map<Role, Boolean> roles = new HashMap<>();
+
+        for(Role role : roleService.getAllRoles()){
+            roles.put(role, false);
+        }
+
+        model.addAttribute("roles", roles);
+
         return "admin/user/add";
     }
 

@@ -28,15 +28,15 @@ public class EmployeeController extends AdminController {
 
     @PostMapping("/search")
     public String searchEmp(@ModelAttribute Content content, Model model){
-        model.addAttribute("empty_emp_edit", new app.model.Employee());
-        model.addAttribute("empty_emp_del", new app.model.Employee());
+        model.addAttribute("empty_emp_edit", new Employee());
+        model.addAttribute("empty_emp_del", new Employee());
 
-        List<app.model.Employee> employees = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
 
         if(NumberUtils.isParsable(content.getText())){ //if user typed number in form
             employees.addAll(employeeService.getEmpsBySalary(Integer.parseInt(content.getText())));
 
-            Optional<app.model.Employee> optionalEmployee = employeeService.findEmpById(Integer.parseInt(content.getText()));
+            Optional<Employee> optionalEmployee = employeeService.findEmpById(Integer.parseInt(content.getText()));
             if(optionalEmployee.isPresent()){
                 if(!employees.contains(optionalEmployee.get())){
                     employees.add(optionalEmployee.get());
@@ -56,8 +56,8 @@ public class EmployeeController extends AdminController {
     @GetMapping("/all")
     public String getAllEmps(Model model){
         model.addAttribute("employees", employeeService.getAllEmps());
-        model.addAttribute("empty_emp_edit", new app.model.Employee());
-        model.addAttribute("empty_emp_del", new app.model.Employee());
+        model.addAttribute("empty_emp_edit", new Employee());
+        model.addAttribute("empty_emp_del", new Employee());
 
         return "/admin/employee/all";
     }
@@ -75,7 +75,7 @@ public class EmployeeController extends AdminController {
             return "/admin/employee/add";
         }
 
-        employeeService.saveEmp(new app.model.Employee(employee.getName(), employee.getSalary()));
+        employeeService.saveEmp(new Employee(employee.getName(), employee.getSalary()));
 
         return "redirect:/admin/employee/addsuccess";
     }

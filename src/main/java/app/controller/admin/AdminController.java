@@ -1,6 +1,8 @@
 package app.controller.admin;
 
 import app.service.EmployeeService;
+import app.service.RoleService;
+import app.service.UserService;
 import app.util.Content;
 import app.util.EmployeeAddFormValidator;
 import app.util.EmployeeEditFormValidator;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     @Autowired
     protected EmployeeService employeeService;
+    @Autowired
+    protected RoleService roleService;
     @Autowired
     protected EmployeeAddFormValidator employeeAddFormValidator;
     @Autowired
