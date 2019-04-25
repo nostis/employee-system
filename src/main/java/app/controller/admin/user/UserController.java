@@ -6,9 +6,11 @@ import app.model.CustomUserDetails;
 import app.model.Employee;
 import app.model.Role;
 import app.model.User;
+import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,12 @@ public class UserController extends AdminController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/panel")
     public String showPanel(){
@@ -65,27 +73,33 @@ public class UserController extends AdminController {
 
     @GetMapping("/add")
     public String showAddForm(@ModelAttribute User user, Model model){
-        Map<Role, Boolean> roles = new HashMap<>();
-
-        for(Role role : roleService.getAllRoles()){
-            roles.put(role, false);
-        }
-
-        model.addAttribute("roles", roles);
+        model.addAttribute("allRoles", roleService.getAllRoles());
+        model.addAttribute("employees", employeeService.getAllEmps());
 
         return "admin/user/add";
     }
 
     @PostMapping("/add")
-    public String submitFormAdd(@Valid @ModelAttribute User user, BindingResult bindingResult){
+    public String submitFormAdd(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
         userAddFormValidator.validate(user, bindingResult);
 
         if(bindingResult.hasErrors()){
+            model.addAttribute("allRoles", roleService.getAllRoles());
+            model.addAttribute("employees", employeeService.getAllEmps());
+
             return "/admin/user/add";
         }
 
-       //userService.saveUser(new app.model.Employee(employee.getName(), employee.getSalary()));
-        userService.saveUser(user); //
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        userService.saveUser(user);
+
+        /*System.out.println(user.getEmpId());
+
+        for(Role role : user.getRoles()){
+            System.out.println(role.toString());
+        }*/
 
         return "redirect:/admin/user/addsuccess";
     }

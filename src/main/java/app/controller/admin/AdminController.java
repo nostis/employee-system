@@ -1,8 +1,6 @@
 package app.controller.admin;
 
 import app.service.EmployeeService;
-import app.service.RoleService;
-import app.service.UserService;
 import app.util.Content;
 import app.util.EmployeeAddFormValidator;
 import app.util.EmployeeEditFormValidator;
@@ -19,8 +17,6 @@ public class AdminController {
     @Autowired
     protected EmployeeService employeeService;
     @Autowired
-    protected RoleService roleService;
-    @Autowired
     protected EmployeeAddFormValidator employeeAddFormValidator;
     @Autowired
     protected EmployeeEditFormValidator employeeEditFormValidator;
@@ -28,13 +24,18 @@ public class AdminController {
     protected UserAddFormValidator userAddFormValidator;
 
     @InitBinder("add")
-    protected void initPersonAddFormBinder(WebDataBinder binder) {
+    protected void initEmpAddFormBinder(WebDataBinder binder) {
         binder.addValidators(employeeAddFormValidator);
     }
 
     @InitBinder("edit")
-    protected void initPersonEditFormBinder(WebDataBinder binder) {
+    protected void initEmpEditFormBinder(WebDataBinder binder) {
         binder.addValidators(employeeEditFormValidator);
+    }
+
+    @InitBinder("add")
+    protected void initUserAddFormBinder(WebDataBinder binder) {
+        binder.addValidators(userAddFormValidator);
     }
 
     @GetMapping("")
