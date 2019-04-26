@@ -27,7 +27,11 @@ public class User {
         this.roles = roles;
     }
 
-    public User(){}
+    public User(){
+        login = "";
+        password = "";
+        empId = 0;
+    }
 
     @Override
     public String toString(){

@@ -18,18 +18,13 @@ public class SingleEmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/employee")
-    public String getEmpByLoggedUser(Authentication authentication, Model model){
+    public String showEmpByLoggedUser(Authentication authentication, Model model){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
         Optional<Employee> optEmployee = employeeService.findEmpById(userDetails.getEmpId());
 
-        if(optEmployee.isPresent()){
-            model.addAttribute("employee", optEmployee.get());
-        }
-        else{
-            model.addAttribute("employee", null);
-        }
+        model.addAttribute("employee", optEmployee.get());
 
-        return "employee/employee";
+        return "single-employee/employee";
     }
 }

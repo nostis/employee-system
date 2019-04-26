@@ -7,13 +7,8 @@
 <body>
     <a style="display:inline-block;" th:href="@{/logout}">Logout</a>
 
-    <div th:with="result = ${employee == null}">
-        <div th:if="${result}">
-            <p>This employee not exist</p>
-        </div>
-        <div th:unless="${result}">
-            <p th:text="${employee.toString()}"></p>
-        </div>
+    <div>
+        <p th:text="${employee.toString()}"></p>
     </div>
 </body>
 </html>

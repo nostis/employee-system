@@ -20,7 +20,10 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Employee(){}
+    public Employee(){
+        name = "";
+        salary = 0;
+    }
 
     @Override
     public String toString(){

@@ -36,15 +36,13 @@ public class SimpleAuthHandler implements AuthenticationSuccessHandler {
     }
 
     protected String determineTargetUrl(Authentication authentication) {
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-
-        int empId = customUserDetails.getEmpId();
-
         boolean isAdmin = false;
         boolean isAccountant = false;
         boolean isEmployee = false;
+
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
+
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 isAdmin = true;

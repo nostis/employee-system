@@ -52,7 +52,7 @@ public class EmployeeController extends AdminController {
     }
 
     @GetMapping("/all")
-    public String getAllEmps(Model model){
+    public String showAllEmps(Model model){
         model.addAttribute("employees", employeeService.getAllEmps());
         model.addAttribute("empty_emp_edit", new Employee());
         model.addAttribute("empty_emp_del", new Employee());
