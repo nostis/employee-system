@@ -17,15 +17,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/user")
 public class UserController extends AdminController {
-
     @Autowired
     private UserService userService;
 
@@ -74,7 +71,21 @@ public class UserController extends AdminController {
     @GetMapping("/add")
     public String showAddForm(@ModelAttribute User user, Model model){
         model.addAttribute("allRoles", roleService.getAllRoles());
-        model.addAttribute("employees", employeeService.getAllEmps());
+        List<Employee> empsModel = employeeService.getAllEmps();
+
+        for(User u : userService.getAllUsers()){ //removing employees from selectable list who are already assigned to users
+            if(u.getEmpId() > 0){
+                Employee toRemove = empsModel
+                        .stream()
+                        .filter(employee -> employee.getId() == u.getEmpId())
+                        .findAny()
+                        .get();
+
+                empsModel.remove(toRemove);
+            }
+        }
+
+        model.addAttribute("employees", empsModel);
 
         return "admin/user/add";
     }
@@ -83,23 +94,33 @@ public class UserController extends AdminController {
     public String submitFormAdd(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model){
         userAddFormValidator.validate(user, bindingResult);
 
+        List<Role> allRoles = roleService.getAllRoles();
+
         if(bindingResult.hasErrors()){
-            model.addAttribute("allRoles", roleService.getAllRoles());
+            model.addAttribute("allRoles", allRoles);
             model.addAttribute("employees", employeeService.getAllEmps());
 
             return "/admin/user/add";
         }
 
+        Optional<Role> employeeRole = roleService.getAllRoles()
+                .stream()
+                .filter(role -> role.getRole().equals("EMPLOYEE"))
+                .findAny();
+
+
+        if(user.getEmpId() == 0){
+            user.getRoles().remove(employeeRole.get()); //removing employee role if admin while creating user choose 'no employee'
+        }
+        else if(!user.getRoles().contains(employeeRole.get())){ //otherwise if user admin choose employee assigned to user and choose roles without employee
+            Set<Role> toUser = user.getRoles();
+            toUser.add(employeeRole.get());
+            user.setRoles(toUser);
+        }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userService.saveUser(user);
-
-        /*System.out.println(user.getEmpId());
-
-        for(Role role : user.getRoles()){
-            System.out.println(role.toString());
-        }*/
 
         return "redirect:/admin/user/addsuccess";
     }
