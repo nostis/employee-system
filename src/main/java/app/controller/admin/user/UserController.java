@@ -1,7 +1,6 @@
 package app.controller.admin.user;
 
 import app.controller.admin.AdminController;
-import app.dao.UserDAOCrud;
 import app.model.CustomUserDetails;
 import app.model.Employee;
 import app.model.Role;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/user")

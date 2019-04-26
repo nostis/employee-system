@@ -10,9 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.thymeleaf.expression.Sets;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +27,6 @@ public class Runnable {
             emps.save(new Employee("Hanna", 2000));
             emps.save(new Employee("John", 1000));
 
-            //users.save(new User())
             roles.save(new Role("ADMIN"));
             roles.save(new Role("ACCOUNTANT"));
             roles.save(new Role("EMPLOYEE"));

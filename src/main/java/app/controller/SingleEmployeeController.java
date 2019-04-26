@@ -5,7 +5,6 @@ import app.model.Employee;
 import app.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ public class SingleEmployeeController {
     @GetMapping("/employee")
     public String getEmpByLoggedUser(Authentication authentication, Model model){
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Optional<Employee> optEmployee = employeeService.findEmpById(userDetails.getEmpId());
 
