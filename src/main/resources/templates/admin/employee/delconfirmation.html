@@ -2,16 +2,23 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Confirmation</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <p>Are you sure to delete this employee?: </p>
-    <p th:text="${employee.toString()}"></p>
-
-    <form action="#" th:action="@{/admin/employee/delete}" method="post" th:object="${empty_emp_del}">
-        <input type="hidden" id="empty_emp_del.id" name="id" th:value="${employee.id}">
-        <button type="submit" name="action" value="yes">Yes</button>
-        <button type="submit" name="action" value="no">No</button>
-    </form>
+    <div class="indentation">
+        <p>Are you sure to delete this employee?: </p>
+        <p th:text="${employee.toString()}"></p>
+    </div>
+    <div class="box">
+        <form action="#" th:action="@{/admin/employee/delete}" method="post" th:object="${empty_emp_del}">
+            <input type="hidden" id="empty_emp_del.id" name="id" th:value="${employee.id}">
+            <button class="btn btn-danger" type="submit" name="action" value="yes">Yes</button>
+            <button class="btn btn-success" type="submit" name="action" value="no">No</button>
+        </form>
+    </div>
 </body>
 </html>

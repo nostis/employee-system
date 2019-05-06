@@ -114,8 +114,7 @@ public class EmployeeController extends AdminController {
 
             return "redirect:/admin/employee/delsuccess";
         }
-        return "redirect:/admin/panel";
-
+        return "redirect:/admin/employee/panel";
     }
 
     @GetMapping("/delsuccess")

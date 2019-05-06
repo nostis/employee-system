@@ -2,10 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>500</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <p>Something went wrong</p>
-    <a th:href="@{/index}">Back to index</a>
+    <div class="indentation">
+        <p>Something went wrong</p>
+        <a th:href="@{/login}">Log in again</a>
+    </div>
 </body>
 </html>

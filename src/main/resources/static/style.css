@@ -1,0 +1,12 @@
+.box {
+    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+}
+.indentation {
+    padding-left: 10px;
+}
+.item {
+    flex: 0 0 5%;
+    margin-right: 5px;
+}

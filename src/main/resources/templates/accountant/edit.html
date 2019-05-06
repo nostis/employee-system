@@ -2,35 +2,41 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <a style="display:inline-block;" th:href="@{/accountant}" >Back to panel</a>
-    <p>Enter new values: </p>
-
-    <form action="#" th:action="@{/accountant/edit}" th:object="${empty_emp_edit}" method="post">
-        <p><input type="hidden" th:field="*{id}"></p>
-
-        <div th:switch="${#fields.hasErrors('id')}">
-            <div th:case="${true}">
-                <p th:text="'Id: ' + ${empty_emp_edit.id}"></p>
-                <p th:errors="*{id}"></p>
-                <a style="display:inline-block;" th:href="@{/accountant/all}" >Back to all employees</a>
-            </div>
-
-            <div th:case="${false}">
-                <div th:if="${employee != null}">
-                    <p th:text="${employee.toString()}"></p>
+    <div class="indentation">
+        <a th:href="@{/accountant}" >Back to panel</a>
+        <p style="padding-top:10px;">Enter new values: </p>
+    </div>
+    <div class="indentation">
+        <form action="#" th:action="@{/accountant/edit}" th:object="${empty_emp_edit}" method="post">
+            <p><input type="hidden" th:field="*{id}"></p>
+            <div th:switch="${#fields.hasErrors('id')}">
+                <div th:case="${true}">
+                    <p th:text="'Id: ' + ${empty_emp_edit.id}"></p>
+                    <p th:errors="*{id}"></p>
+                    <a th:href="@{/accountant/all}" >Back to all employees</a>
                 </div>
+                <div th:case="${false}">
+                    <div th:if="${employee != null}">
+                        <p th:text="${employee.toString()}"></p>
+                    </div>
 
-                <p><input type="hidden" id="name" name="name" th:value="${employee.name}"></p>
-                <p>Salary <input type="number" th:field="*{salary}" min="0" required></p>
+                    <p><input type="hidden" id="name" name="name" th:value="${employee.name}"></p>
+                    <p>Salary <input type="number" th:field="*{salary}" min="0" required></p>
 
-                <p th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+                    <p th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
 
-                <p><input type="submit" value="Edit employee" /></p>
+                    <p><input class="btn btn-warning" type="submit" value="Edit employee" /></p>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </body>
 </html>

@@ -2,23 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Search</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <a th:href="@{/accountant}">Back to panel</a>
-    <br>
-    <div th:with="result = ${employees.isEmpty()}">
-        <td th:text="'Results for ' + ${content.text}"></td>
-        <br>
+    <div class="indentation">
+        <a th:href="@{/accountant}">Back to panel</a>
+    </div>
+    <p th:with="result = ${employees.isEmpty()}">
+        <p style="padding-top:10px;" class="indentation" th:text="'Results for ' + ${content.text}"></p>
         <div>
             <p th:if="${result}">Cant find employee</p>
             <div th:unless="${result}" th:each="e : ${employees}">
-                <form style="display:inline-block;" th:object="${empty_emp_edit}" action="#" th:action="@{/accountant/edit}" method="get">
-                    <p style="display:inline-block;" th:text="${e.toString()}"></p>
-                    <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
+                <div class="box">
+                    <div style="padding-right:5px;">
+                        <p th:text="${e.toString()}"></p>
+                    </div>
+                    <div class="item">
+                        <form th:object="${empty_emp_edit}" action="#" th:action="@{/accountant/edit}" method="get">
 
-                    <input type="submit" value="Edit">
-                </form>
+                            <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
+
+                            <input class="btn btn-warning" type="submit" value="Edit">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

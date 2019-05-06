@@ -2,24 +2,37 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>All</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <a th:href="@{/accountant}">Back to panel</a>
-    <br>
+    <div class="indentation">
+        <a th:href="@{/accountant}">Back to panel</a>
+    </div>
+
     <div th:with="result = ${employees.isEmpty()}">
         <div th:if="${result}">
             <p>List is empty</p>
         </div>
         <div th:unless="${result}">
-            <p>Employees:</p>
+            <p style="padding-top:10px;" class="indentation">Employees:</p>
             <div th:each="e : ${employees}">
-                <form style="display:inline-block;" th:object="${empty_emp_edit}" action="#" th:action="@{/accountant/edit}" method="get">
-                    <p style="display:inline-block;" th:text="${e.toString()}"></p>
-                    <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
+                <div class="box">
+                    <div style="padding-right:5px;">
+                        <p th:text="${e.toString()}"></p>
+                    </div>
+                    <div class="item">
+                        <form th:object="${empty_emp_edit}" action="#" th:action="@{/accountant/edit}" method="get">
 
-                    <input type="submit" value="Edit">
-                </form>
+                            <input type="hidden" id="empty_emp_edit.id" name="id" th:value="${e.id}">
+
+                            <input type="submit" value="Edit" class="btn btn-warning">
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
